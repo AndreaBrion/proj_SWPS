@@ -19,7 +19,9 @@ pool.connect()
   .then(() => console.log('Connesso al database PostgreSQL'))
   .catch(err => console.error('Errore di connessione:', err));
 
-/*Rotta base
+/*
+Rotta base: ossia dove si visualizza il risultato della query
+
 app.get('/', async (req, res) => {
   try {
     const result = await pool.query('SELECT NOW()');
@@ -28,6 +30,7 @@ app.get('/', async (req, res) => {
     console.error(err);
     res.status(500).send('Errore nel recupero dei dati');
   }
+
 });
 */
 
