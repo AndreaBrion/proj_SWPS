@@ -1,0 +1,63 @@
+1. Open jmeter and create a test plan.
+
+2. Right click on it->add threads (users)->thread group,because we want a closed queueing system.
+Thread group is the main container for system's users simulation.
+Configuration:
+
+2.1 Number of threads(users):specify the number of users (notice that 1 user=E[R]=1/mu)
+
+2.2 Ramp-up period(seconds):interval of time each thread spawns (how much time i need to execute all threads,10 thread in 10 seconds->1 thread/sec) notice that if i start threads altogether is too pessimistic.
+
+2.3 Loop count:how many times a user performs a test(send a request)
+
+2.4 Same user on each iteration:if checked means that the user each time,clear its session/state (memoryless user)
+
+2.5 Delay thread creation (during ramp-up) for memory efficency purposes.
+
+2.6 Specify thread lifetime:how much time a thread performs a request by its duration(seconds) and also i can delay its startup(seconds)
+
+test duration=MIN(loop count,specify thread lifetime)
+
+3. Right click on Thread group->add->sampler->HTTP request
+
+HTTP Request (sampler):sending the actual HTTP request to the server
+
+3.1 filling the following fields:
+protocol:http
+server name or ip:localhost (or 127.0.0.1)
+port number:3000
+HTTP request:GET
+Path:relative or absolute path
+
+
+4.Right click on HTTP request sampler->add->config elements->HTTP request defaults (actually is not needed since the sampler have the same parameters)
+
+defines default values used by all HTTP request sampler
+
+5.Right click on thread group->add->timer->poisson random timer
+
+add poisson distributed random delays between requests (exponential inter-arrival time) in order to simulate more realistic web traffic avoid firing all requests simultaneously.
+
+Notice that Lambda (milliseconds) is actually 1/Lambda (expected exponential inter-arrival time)
+
+Constant delay offset(milliseconds) add specified delay each time a request is performed.
+
+6.Right click on thread group->add->listener->summary report
+shows a summary table regarding test performances,including:
+
+#samples=#threads*#loop count how many requests were performed
+
+average=average response time
+
+Min/Max/standard deviation of response time
+
+error %=percentage of requests loss
+
+throughput=number of requests fired per second
+
+7.Right click on thread group->add->listener->response time graph
+shows a graph where X axis is the time (HH:mm:ss) and Y axis is the response time in milliseconds.
+
+each thread executes all the samplers/timer/listener embedded on it
+
+never execute a load test in a gui mode because the garbage collector adds some delays (increasing response time) therefore do it on a command line interface. 
