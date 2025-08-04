@@ -34,13 +34,17 @@ Path:relative or absolute path
 
 defines default values used by all HTTP request sampler
 
-5.Right click on thread group->add->timer->poisson random timer
+5.Right click on thread group->add->timer->poisson random timer (ONLY IF I HAVE AN OPEN SYSTEM)
 
 add poisson distributed random delays between requests (exponential inter-arrival time) in order to simulate more realistic web traffic avoid firing all requests simultaneously.
 
 Notice that Lambda (milliseconds) is actually 1/Lambda (expected exponential inter-arrival time)
 
 Constant delay offset(milliseconds) add specified delay each time a request is performed.
+
+If i have a closed system then Right click on thread group->add think times to children
+
+inside Think time component there is pause in which i can configure the thinking time called Random delay maximum (in milliseconds) and Constant delay offset(milliseconds) to add specified delay each time a request is performed.
 
 6.Right click on thread group->add->listener->summary report
 shows a summary table regarding test performances,including:
