@@ -5,19 +5,20 @@ const { Pool } = require('pg');
 const app = express();
 const port = 3000;
 
+
 // Configurazione della connessione al db PostgreSQL
-const pool = new Pool({
-  user: 'postgres',                                         // nome utente del db
-  host: 'localhost',
-  database: 'Imdb',
-  password: '123123',
-  port: 5432,                                               // porta predefinita PostgreSQL
-});
+//const pool = new Pool({
+//  user: 'postgres',                                         // nome utente del db
+//  host: 'localhost',
+//  database: 'Imdb',
+//  password: '123123',
+//  port: 5432,                                               // porta predefinita PostgreSQL
+//});
 
 // Test di connessione al db
-pool.connect()
-  .then(() => console.log('Connesso al database PostgreSQL'))
-  .catch(err => console.error('Errore di connessione:', err));
+//pool.connect()
+//  .then(() => console.log('Connesso al database PostgreSQL'))
+//  .catch(err => console.error('Errore di connessione:', err));
 
 /*
 Rotta base: ossia dove si visualizza il risultato della query
@@ -56,7 +57,20 @@ app.get('/', async (req, res) => {
 Query che recupera titoli cinematografici associati a un 
 elenco di persone specifiche, mostrando le informazioni sia della persona che del titolo
 */
-app.get('/test', async (req, res) => {                      //'/' è posto in path della http request in jmeter
+
+
+app.get('/test', async (req, res) => {
+
+  //Stampa counter
+  let counter = 0; // Contatore per le richieste
+  for(let i=0; i<100; i++){
+      counter++;
+      console.log(`Richiesta numero: ${counter}`);
+  }
+  res.send(`Fine ciclo, counter = ${counter}`);
+
+});                     //'/' è posto in path della http request in jmeter
+/* Dato che via jMeter impostiamo la query da eseguire
   // const N = 20;
   const N = 1;  //Dato che via jMeter impostiamo il # di iterazioni
   const responses = []; // corretto: nome coerente
@@ -97,6 +111,7 @@ app.get('/test', async (req, res) => {                      //'/' è posto in pa
     res.status(500).send('Errore nel server o nel database');
   }
 });
+*/
 
 
 // Avvio del server
