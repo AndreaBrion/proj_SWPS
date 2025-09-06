@@ -61,7 +61,8 @@ elenco di persone specifiche, mostrando le informazioni sia della persona che de
 
 app.get('/test', async (req, res) => {
 
-  //Stampa counter
+  //Stampa counter: questo serve solo per aumentare l'overhead al server -> quando inviamo la richiesta aggiungiamo un po' di response time in modo da ottenere riusltati
+  //                non approssimabili a 0 (cosa che faceva jmeter)
   let counter = 0; // Contatore per le richieste
   for(let i=0; i<100; i++){
       counter++;

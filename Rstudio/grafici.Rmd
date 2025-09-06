@@ -1,0 +1,53 @@
+---
+title: "aa"
+output: html_document
+date: "2025-09-06"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+I seguenti sono stati ottenuti avendo un massimo # di connessioni al DB consentite di 50
+```{r cars}
+server_throughput_data <- c(0.94, 4.7, 8.8, 11.4, 12.4, 8.8, 6.3, 4.4)
+server_response_time_data <- c(9, 17, 70, 261, 565, 2706, 5269, 10363)
+
+db_throughput_data <- c(1, 1.6, 1.4, 1.5, 1.6, 1.4, 1.6, 1.5)
+db_response_time_data <- c(983, 3150, 7048, 9900, 12262, 20717, 25256, 33702)
+
+users_number <- c(1, 5, 10, 15, 20, 30, 40, 50)
+```
+
+
+
+```{r pressure, echo=FALSE}
+
+plottin_fun <- function (data, users, title, yAxis, ticks, minY) {
+  plot(users, data, type = "n",
+       main = title,
+       xlab = "Number of Users",
+       ylab = yAxis,  
+       ylim = c(minY, max(data)),
+       yaxt = "n")
+  
+  labels <- ticks 
+  
+  axis(2, at = ticks, labels = labels, las = 1) 
+  
+  lines(users, data, col = "red", lwd = 2)
+}
+
+plottin_fun(server_response_time_data, users_number, "Server R ~ N", "Response Time (ms)", seq(0, 10000, by = 500), 0)
+
+plottin_fun(server_throughput_data, users_number, "Server X ~ N", "Throughput", seq(1, 15, by = 1), 1)
+
+
+plottin_fun(db_response_time_data, users_number, "DB R ~ N", "Response Time (ms)", seq(0, 35000, by = 5000), 0)
+
+plottin_fun(db_throughput_data, users_number, "DB X ~ N", "Throughput", seq(1, 2, by = 0.1), 1)
+```
+
+
+
