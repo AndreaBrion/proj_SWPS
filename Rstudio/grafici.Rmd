@@ -37,6 +37,10 @@ plottin_fun <- function (data, users, title, yAxis, ticks, minY) {
   axis(2, at = ticks, labels = labels, las = 1) 
   
   lines(users, data, col = "red", lwd = 2)
+  
+  abline(v = 10, col = "lightblue", lty = 2)   # Dashed blue line at x = 5
+  abline(v = 30, col = "green", lty = 2) # Dashed green line at x = 30
+  
 }
 
 plottin_fun(server_response_time_data, users_number, "Server R ~ N", "Response Time (ms)", seq(0, 10000, by = 500), 0)
@@ -48,6 +52,7 @@ plottin_fun(db_response_time_data, users_number, "DB R ~ N", "Response Time (ms)
 
 plottin_fun(db_throughput_data, users_number, "DB X ~ N", "Throughput", seq(1, 2, by = 0.1), 1)
 ```
+
 
 
 
